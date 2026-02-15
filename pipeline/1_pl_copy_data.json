@@ -1,0 +1,42 @@
+{
+	"name": "1_pl_copy_data",
+	"properties": {
+		"activities": [
+			{
+				"name": "testing",
+				"description": "",
+				"type": "Fail",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"message": "test",
+					"errorCode": "404"
+				}
+			},
+			{
+				"name": "testing_copy1",
+				"description": "",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "testing",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": "test",
+					"errorCode": "404"
+				}
+			}
+		],
+		"folder": {
+			"name": "ksr_project"
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-02-15T05:03:32Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
