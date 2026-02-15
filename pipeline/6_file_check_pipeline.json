@@ -7,7 +7,7 @@
 				"type": "GetMetadata",
 				"dependsOn": [
 					{
-						"activity": "Set variable1",
+						"activity": "date",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -140,16 +140,28 @@
 				}
 			},
 			{
-				"name": "Set variable1",
+				"name": "date",
 				"type": "SetVariable",
 				"dependsOn": [],
 				"policy": {
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "date",
+					"value": {
+						"value": "@formatDateTime(utcNow(),'yyyyddmm')",
+						"type": "Expression"
+					}
+				}
 			}
 		],
+		"variables": {
+			"date": {
+				"type": "String"
+			}
+		},
 		"folder": {
 			"name": "ksr_project"
 		},
