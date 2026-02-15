@@ -125,7 +125,10 @@
 									"referenceName": "ds_input",
 									"type": "DatasetReference",
 									"parameters": {
-										"folder": "20261502/twest.csv"
+										"folder": {
+											"value": "@concat('input/',variables('date'))",
+											"type": "Expression"
+										}
 									}
 								}
 							],
@@ -135,7 +138,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"folder": {
-											"value": "@concat('output_sales',variables('date'))",
+											"value": "@concat('output_sales_adf/',variables('date'))",
 											"type": "Expression"
 										}
 									}
