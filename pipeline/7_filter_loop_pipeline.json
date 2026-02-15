@@ -46,6 +46,10 @@
 							"folder": {
 								"value": "@concat('folder1/',variables('date'))",
 								"type": "Expression"
+							},
+							"filename": {
+								"value": "item().name",
+								"type": "Expression"
 							}
 						}
 					},
