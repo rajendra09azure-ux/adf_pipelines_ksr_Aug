@@ -19,7 +19,7 @@
 						"referenceName": "ds_input",
 						"type": "DatasetReference",
 						"parameters": {
-							"folder": "20261602/twest.csv"
+							"folder": "20261502/twest.csv"
 						}
 					},
 					"fieldList": [
