@@ -1,5 +1,5 @@
 {
-	"name": "6_pipeline",
+	"name": "6_file_check_pipeline",
 	"properties": {
 		"folder": {
 			"name": "ksr_project"
