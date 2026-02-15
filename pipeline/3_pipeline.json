@@ -1,6 +1,73 @@
 {
 	"name": "3_pipeline",
 	"properties": {
+		"activities": [
+			{
+				"name": "A",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "AA",
+					"value": {
+						"value": "5",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "BB",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "BB",
+					"value": {
+						"value": "10",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "CC",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "CC",
+					"value": {
+						"value": "@string(add(mul(int(variables('AA')),int(variables('AA'))),mul(int(variables('BB')),int(variables('BB'))),mul(int(variables('AA')),int(variables('BB')))))",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"A": {
+				"type": "Integer"
+			},
+			"AA": {
+				"type": "String"
+			},
+			"BB": {
+				"type": "String"
+			},
+			"CC": {
+				"type": "String"
+			}
+		},
 		"folder": {
 			"name": "ksr_project"
 		},
