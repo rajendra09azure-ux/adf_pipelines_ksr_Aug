@@ -1,0 +1,23 @@
+{
+	"name": "ds_MySql",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_MySql",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"table": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "MySqlTable",
+		"schema": [],
+		"typeProperties": {
+			"tableName": {
+				"value": "@dataset().table",
+				"type": "Expression"
+			}
+		}
+	}
+}
