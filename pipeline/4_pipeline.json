@@ -13,9 +13,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "destination",
-					"value": [
-						""
-					]
+					"value": ""
 				}
 			},
 			{
@@ -43,7 +41,7 @@
 				]
 			},
 			"destination": {
-				"type": "Array"
+				"type": "Integer"
 			}
 		},
 		"folder": {
