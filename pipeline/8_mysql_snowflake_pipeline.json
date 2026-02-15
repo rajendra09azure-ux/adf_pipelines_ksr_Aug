@@ -18,6 +18,12 @@
 					"source": {
 						"type": "MySqlSource"
 					},
+					"sink": {
+						"type": "SnowflakeV2Sink",
+						"importSettings": {
+							"type": "SnowflakeImportCopyCommand"
+						}
+					},
 					"enableStaging": false
 				},
 				"inputs": [
@@ -27,6 +33,12 @@
 						"parameters": {
 							"table": "sales_orders"
 						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_Snowflake",
+						"type": "DatasetReference"
 					}
 				]
 			}
