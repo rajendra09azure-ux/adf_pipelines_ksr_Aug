@@ -62,7 +62,7 @@
 				}
 			},
 			{
-				"name": "Filter1",
+				"name": "Filter1_csv",
 				"type": "Filter",
 				"dependsOn": [
 					{
@@ -80,6 +80,29 @@
 					},
 					"condition": {
 						"value": "@endswith(item().name,'.csv')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Filter1_json",
+				"type": "Filter",
+				"dependsOn": [
+					{
+						"activity": "Get_file_info",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get_file_info').output.childItems",
+						"type": "Expression"
+					},
+					"condition": {
+						"value": "@endswith(item().name,'.json')",
 						"type": "Expression"
 					}
 				}
