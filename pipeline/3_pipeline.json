@@ -109,7 +109,7 @@
 				"typeProperties": {
 					"variableName": "2AB",
 					"value": {
-						"value": "@string(mul(2,mul(int(variables('AA')),int(variables('BB')))))",
+						"value": "@string(mul(int(variables('AA')),int(variables('BB'))))",
 						"type": "Expression"
 					}
 				}
