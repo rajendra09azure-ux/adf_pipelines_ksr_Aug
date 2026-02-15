@@ -1,6 +1,49 @@
 {
 	"name": "2_pipeline_activities",
 	"properties": {
+		"activities": [
+			{
+				"name": "Breadth",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "breadth",
+					"value": ""
+				}
+			},
+			{
+				"name": "length_copy1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "length",
+					"value": {
+						"value": "5",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"length": {
+				"type": "String",
+				"defaultValue": "5"
+			},
+			"breadth": {
+				"type": "String",
+				"defaultValue": "10"
+			}
+		},
 		"folder": {
 			"name": "ksr_project"
 		},
