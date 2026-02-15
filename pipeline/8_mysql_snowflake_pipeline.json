@@ -38,7 +38,10 @@
 				"outputs": [
 					{
 						"referenceName": "ds_Snowflake",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "sales_orders"
+						}
 					}
 				]
 			}
