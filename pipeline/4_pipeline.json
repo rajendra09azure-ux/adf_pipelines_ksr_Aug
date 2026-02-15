@@ -10,9 +10,42 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "destination",
+					"value": [
+						""
+					]
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@variables('list')",
+						"type": "Expression"
+					}
+				}
 			}
 		],
+		"variables": {
+			"list": {
+				"type": "Array",
+				"defaultValue": [
+					1,
+					2,
+					3,
+					4,
+					5
+				]
+			},
+			"destination": {
+				"type": "Array"
+			}
+		},
 		"folder": {
 			"name": "ksr_project"
 		},
