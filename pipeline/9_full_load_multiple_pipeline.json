@@ -1,0 +1,9 @@
+{
+	"name": "9_full_load_multiple_pipeline",
+	"properties": {
+		"folder": {
+			"name": "ksr_project"
+		},
+		"annotations": []
+	}
+}
