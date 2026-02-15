@@ -16,17 +16,21 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "MySqlSource",
+						"type": "SnowflakeV2Source",
 						"query": {
-							"value": "select TABLE_NAME from information_schema.tables \nwhere table_schema='sales';",
+							"value": "select * from public.table_mapping;",
 							"type": "Expression"
-						}
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						},
+						"treatDecimalAsString": false
 					},
 					"dataset": {
-						"referenceName": "ds_MySql",
+						"referenceName": "ds_Snowflake",
 						"type": "DatasetReference",
 						"parameters": {
-							"table": "name"
+							"tablename": "name"
 						}
 					},
 					"firstRowOnly": false
