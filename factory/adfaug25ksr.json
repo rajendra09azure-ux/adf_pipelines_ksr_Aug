@@ -1,5 +1,13 @@
 {
 	"name": "adfaug25ksr",
+	"properties": {
+		"globalParameters": {
+			"env": {
+				"type": "string",
+				"value": "dev"
+			}
+		}
+	},
 	"location": "eastus",
 	"identity": {
 		"type": "SystemAssigned",
