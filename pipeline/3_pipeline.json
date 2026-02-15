@@ -113,6 +113,42 @@
 						"type": "Expression"
 					}
 				}
+			},
+			{
+				"name": "final",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "AAA",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "2AB",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "BBB",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "final",
+					"value": {
+						"value": "@string(add(int(variables('AA')),add(int(variables('BBB')),int(variables('2AB')))))",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"variables": {
@@ -132,6 +168,9 @@
 				"type": "String"
 			},
 			"2AB": {
+				"type": "String"
+			},
+			"final": {
 				"type": "String"
 			}
 		},
