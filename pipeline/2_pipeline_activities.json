@@ -13,7 +13,10 @@
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "breadth",
-					"value": ""
+					"value": {
+						"value": "10",
+						"type": "Expression"
+					}
 				}
 			},
 			{
