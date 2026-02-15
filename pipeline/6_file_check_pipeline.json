@@ -134,7 +134,10 @@
 									"referenceName": "ds_output",
 									"type": "DatasetReference",
 									"parameters": {
-										"folder": "sales_adf_20261602"
+										"folder": {
+											"value": "@concat('output_sales',variables('date'))",
+											"type": "Expression"
+										}
 									}
 								}
 							]
