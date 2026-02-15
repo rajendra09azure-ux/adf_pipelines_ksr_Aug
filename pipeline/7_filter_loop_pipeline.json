@@ -1,6 +1,90 @@
 {
 	"name": "7_filter_loop_pipeline",
 	"properties": {
+		"activities": [
+			{
+				"name": "date",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "date",
+					"value": {
+						"value": "@formatDateTime(utcNow(),'yyyyddmm')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Get_file_info",
+				"type": "GetMetadata",
+				"dependsOn": [
+					{
+						"activity": "date",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "ds_input",
+						"type": "DatasetReference",
+						"parameters": {
+							"folder": {
+								"value": "@concat('folder1/',variables('date'))",
+								"type": "Expression"
+							}
+						}
+					},
+					"fieldList": [
+						"exists"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
+				}
+			},
+			{
+				"name": "Filter1",
+				"type": "Filter",
+				"dependsOn": [
+					{
+						"activity": "Get_file_info",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get_file_info').output.childItems",
+						"type": "Expression"
+					},
+					"condition": {
+						"value": "@startswith(item().name,'sales')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
 		"folder": {
 			"name": "ksr_project"
 		},
