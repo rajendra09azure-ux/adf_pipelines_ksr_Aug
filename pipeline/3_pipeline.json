@@ -85,7 +85,7 @@
 				}
 			},
 			{
-				"name": "2AB",
+				"name": "twoAB",
 				"type": "SetVariable",
 				"dependsOn": [
 					{
@@ -107,7 +107,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "2AB",
+					"variableName": "twoAB",
 					"value": {
 						"value": "@string(mul(int(variables('AA')),int(variables('BB'))))",
 						"type": "Expression"
@@ -125,7 +125,7 @@
 						]
 					},
 					{
-						"activity": "2AB",
+						"activity": "twoAB",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -145,7 +145,7 @@
 				"typeProperties": {
 					"variableName": "final",
 					"value": {
-						"value": "@string(add(int(variables('AA')),add(int(variables('BBB')),int(variables('2AB')))))",
+						"value": "@string(add(int(variables('AA')),add(int(variables('BBB')),int(variables('twoAB')))))",
 						"type": "Expression"
 					}
 				}
@@ -171,6 +171,9 @@
 				"type": "String"
 			},
 			"final": {
+				"type": "String"
+			},
+			"twoAB": {
 				"type": "String"
 			}
 		},
