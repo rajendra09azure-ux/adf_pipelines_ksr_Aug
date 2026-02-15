@@ -27,7 +27,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"folder": {
-								"value": "@concat('input/',variables('date'))",
+								"value": "@concat('folder1/',variables('date'),'/twest.csv')",
 								"type": "Expression"
 							}
 						}
@@ -126,7 +126,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"folder": {
-											"value": "@concat('input/',variables('date'))",
+											"value": "@concat('folder1/',variables('date'),'/twest.csv')",
 											"type": "Expression"
 										}
 									}
@@ -138,7 +138,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"folder": {
-											"value": "@concat('output_sales_adf/',variables('date'))",
+											"value": "@concat('output_sales_adf',variables('date'))",
 											"type": "Expression"
 										}
 									}
