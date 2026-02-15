@@ -167,9 +167,6 @@
 			"BBB": {
 				"type": "String"
 			},
-			"2AB": {
-				"type": "String"
-			},
 			"final": {
 				"type": "String"
 			},
