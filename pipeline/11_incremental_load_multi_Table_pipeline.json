@@ -201,7 +201,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"tablename": {
-											"value": "@concat(item().TABLE_NAME,'_SNOWFLAKE')",
+											"value": "@concat(toUpper(item().TABLE_NAME),'_SNOWFLAKE')",
 											"type": "Expression"
 										}
 									}
