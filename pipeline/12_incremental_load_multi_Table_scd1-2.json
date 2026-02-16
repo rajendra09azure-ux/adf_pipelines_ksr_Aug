@@ -215,8 +215,43 @@
 						{
 							"name": "UPDATE_watermark_table",
 							"type": "Script",
-							"state": "Inactive",
-							"onInactiveMarkAs": "Succeeded",
+							"dependsOn": [
+								{
+									"activity": "Script_scd1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"linkedServiceName": {
+								"referenceName": "ls_Snowflake",
+								"type": "LinkedServiceReference"
+							},
+							"typeProperties": {
+								"scripts": [
+									{
+										"type": "Query",
+										"text": {
+											"value": "UPDATE watermark_control\nSET last_loaded_timestamp = (\n    SELECT MAX(last_modified)\n    FROM IDENTIFIER('@{item().TABLE_NAME}_snowflake')\n)\nWHERE table_name = '@{item().TABLE_NAME}';",
+											"type": "Expression"
+										}
+									}
+								],
+								"scriptBlockExecutionTimeout": "02:00:00",
+								"treatDecimalAsString": false
+							}
+						},
+						{
+							"name": "Script_scd1",
+							"type": "Script",
 							"dependsOn": [
 								{
 									"activity": "Copy data1",
@@ -242,7 +277,7 @@
 									{
 										"type": "Query",
 										"text": {
-											"value": "UPDATE watermark_control\nSET last_loaded_timestamp = (\n    SELECT MAX(last_modified)\n    FROM IDENTIFIER('@{item().TABLE_NAME}_snowflake')\n)\nWHERE table_name = '@{item().TABLE_NAME}';",
+											"value": "DECLARE\nsrc_table STRING DEFAULT '@{item().table_name}_stage';\ntgt_table STRING DEFAULT '@{item().table_name}_snowflake':\npf STRING DEFAULT '@{item().primary_key}':\ncol_list STRING;\nupd_list STRING;\nmerge_sql STRING;\nBEGIN\n    SELECT LISTAGG(column_name,'.') \n    INTO :col_list\n    from INFORMATION_SCHEMA.COLUMNS\n    WHERE table_name=UPPER(:tgt_table);\n\n    SELECT LISTAGG('t.'|| column_name || '- s.' || column_name,',')\n    INTO :upd_list\n    FROM INFORMATION_SCHEMA.COLUMNS\n    WHERE column_name<> UPPER(:pk);\n\n    merge_sql :='\n        MERGE INTO ' || tgt_table || 't\n        USING '|| src_table || 's\n        ON t.'||pk||'=s.' || pk ||'\n        WHEN MATCHED THEN UPDATE SET '||upd_list||'\n        WHEN NOT MATCHED THEN INSERT ('|| col_list ||')\n        VALUES (' ||REPLACE(col_list,',',',s.')||)';\n EXECUTE IMMEDIATE merge_sql;\n END;",
 											"type": "Expression"
 										}
 									}
