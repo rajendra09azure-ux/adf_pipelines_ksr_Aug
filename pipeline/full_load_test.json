@@ -1,0 +1,9 @@
+{
+	"name": "full_load_test",
+	"properties": {
+		"folder": {
+			"name": "ksr_project"
+		},
+		"annotations": []
+	}
+}
