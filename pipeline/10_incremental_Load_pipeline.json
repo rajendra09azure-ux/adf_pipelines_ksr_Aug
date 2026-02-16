@@ -31,6 +31,46 @@
 					"scriptBlockExecutionTimeout": "02:00:00",
 					"treatDecimalAsString": false
 				}
+			},
+			{
+				"name": "Lookup_watermark",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Script1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeV2Source",
+						"query": {
+							"value": "SELECT last_loaded_timestamp\nFROM watermark_control\nWHERE table_name = '@{pipeline().parameters.p_table_name}';",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						},
+						"treatDecimalAsString": false
+					},
+					"dataset": {
+						"referenceName": "ds_Snowflake",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "mapping"
+						}
+					}
+				}
 			}
 		],
 		"parameters": {
