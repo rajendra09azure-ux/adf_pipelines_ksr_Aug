@@ -50,7 +50,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Lookup_snflk_mng_tbl').output",
+						"value": "@activity('Lookup_snflk_mng_tbl').output.value",
 						"type": "Expression"
 					},
 					"activities": [
