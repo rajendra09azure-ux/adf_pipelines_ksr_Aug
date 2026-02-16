@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Lookup_snowflake_mapping_table",
+				"name": "Lookup_snflk_mng_tbl",
 				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
@@ -41,7 +41,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Lookup_snowflake_mapping_table",
+						"activity": "Lookup_snflk_mng_tbl",
 						"dependencyConditions": [
 							"Succeeded"
 						]
