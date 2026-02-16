@@ -95,12 +95,71 @@
 						"type": "Expression"
 					}
 				}
+			},
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "v_last_watermark",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MySqlSource"
+					},
+					"sink": {
+						"type": "SnowflakeV2Sink",
+						"importSettings": {
+							"type": "SnowflakeImportCopyCommand"
+						}
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "linkedService1",
+							"type": "LinkedServiceReference"
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_MySql",
+						"type": "DatasetReference",
+						"parameters": {
+							"table": {
+								"value": "SELECT *\nFROM @{pipeline().parameters.p_table_name}\nWHERE last_modified > '@{variables('v_last_watermark')}'",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_Snowflake",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "SALES_ORDERS_SNOWFLAKE"
+						}
+					}
+				]
 			}
 		],
 		"parameters": {
 			"p_table_name": {
 				"type": "string",
-				"defaultValue": "SALES_ORDERS_SNOWFLAKE"
+				"defaultValue": "sales_orders"
 			}
 		},
 		"variables": {
