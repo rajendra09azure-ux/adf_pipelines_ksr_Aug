@@ -1,0 +1,91 @@
+{
+	"name": "ds_Snowflake_1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_Snowflake_1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"tablename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "SnowflakeV2Table",
+		"schema": [
+			{
+				"name": "ORDER_ID",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "ORDER_DATE",
+				"type": "DATE",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "CUSTOMER_NAME",
+				"type": "VARCHAR",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "PRODUCT",
+				"type": "VARCHAR",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "CATEGORY",
+				"type": "VARCHAR",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "QUANTITY",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "UNIT_PRICE",
+				"type": "NUMBER",
+				"precision": 10,
+				"scale": 2
+			},
+			{
+				"name": "TOTAL_AMOUNT",
+				"type": "NUMBER",
+				"precision": 10,
+				"scale": 2
+			},
+			{
+				"name": "REGION",
+				"type": "VARCHAR",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "PAYMENT_METHOD",
+				"type": "VARCHAR",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "LAST_MODIFIED",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 0,
+				"scale": 9
+			}
+		],
+		"typeProperties": {
+			"schema": "PUBLIC",
+			"table": {
+				"value": "@dataset().tablename",
+				"type": "Expression"
+			}
+		}
+	}
+}
