@@ -17,6 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SnowflakeV2Source",
+						"query": "select * from TABLE_METADATA",
 						"exportSettings": {
 							"type": "SnowflakeExportCopyCommand"
 						},
