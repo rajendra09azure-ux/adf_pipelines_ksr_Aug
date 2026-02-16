@@ -73,7 +73,7 @@
 								"sink": {
 									"type": "SnowflakeV2Sink",
 									"preCopyScript": {
-										"value": "@concat('TRUNCATE TABLE ', item().TARGET_TABLE,';')",
+										"value": "@concat('TRUNCATE TABLE PUBLIC.', item().TARGET_TABLE,';')",
 										"type": "Expression"
 									},
 									"importSettings": {
