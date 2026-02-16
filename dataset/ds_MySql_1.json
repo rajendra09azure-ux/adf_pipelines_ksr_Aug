@@ -1,0 +1,20 @@
+{
+	"name": "ds_MySql_1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_MySql_1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"table": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "MySqlTable",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "`sales_orders`"
+		}
+	}
+}
