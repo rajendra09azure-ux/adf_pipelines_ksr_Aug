@@ -86,14 +86,8 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "ds_MySql",
-									"type": "DatasetReference",
-									"parameters": {
-										"table": {
-											"value": "@item().SOURCE_TABLE",
-											"type": "Expression"
-										}
-									}
+									"referenceName": "ds_MySql_1",
+									"type": "DatasetReference"
 								}
 							],
 							"outputs": [
