@@ -175,7 +175,7 @@
 								"sink": {
 									"type": "SnowflakeV2Sink",
 									"preCopyScript": {
-										"value": "@concat('TRUNCATE TABLE PUBLIC.',item().TABLE_NAME)",
+										"value": "@concat('TRUNCATE TABLE PUBLIC.',item().TABLE_NAME,'_STAGE')",
 										"type": "Expression"
 									},
 									"importSettings": {
