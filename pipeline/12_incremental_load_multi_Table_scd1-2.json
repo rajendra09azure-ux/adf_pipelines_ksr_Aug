@@ -27,7 +27,7 @@
 						"referenceName": "ds_Snowflake_1",
 						"type": "DatasetReference",
 						"parameters": {
-							"tablename": "TABLE_METADATA"
+							"tablename": "TABLE_METADATA2"
 						}
 					},
 					"firstRowOnly": false
