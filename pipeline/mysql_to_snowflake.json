@@ -1,0 +1,9 @@
+{
+	"name": "mysql_to_snowflake",
+	"properties": {
+		"folder": {
+			"name": "ksr_project"
+		},
+		"annotations": []
+	}
+}
