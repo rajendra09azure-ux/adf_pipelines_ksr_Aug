@@ -35,7 +35,10 @@
 				"inputs": [
 					{
 						"referenceName": "ds_MySql_1",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"table": "sales_orders"
+						}
 					}
 				],
 				"outputs": [
