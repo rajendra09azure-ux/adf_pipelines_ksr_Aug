@@ -215,6 +215,8 @@
 						{
 							"name": "UPDATE_watermark_table",
 							"type": "Script",
+							"state": "Inactive",
+							"onInactiveMarkAs": "Succeeded",
 							"dependsOn": [
 								{
 									"activity": "Copy data1",
