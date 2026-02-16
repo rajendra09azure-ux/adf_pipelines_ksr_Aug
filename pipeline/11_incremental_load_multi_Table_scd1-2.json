@@ -1,0 +1,262 @@
+{
+	"name": "11_incremental_load_multi_Table_scd1-2",
+	"properties": {
+		"activities": [
+			{
+				"name": "Lookup1",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeV2Source",
+						"query": "select * from TABLE_METADATA",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						},
+						"treatDecimalAsString": false
+					},
+					"dataset": {
+						"referenceName": "ds_Snowflake_1",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "TABLE_METADATA"
+						}
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Lookup1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Lookup1').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Script1",
+							"type": "Script",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"linkedServiceName": {
+								"referenceName": "ls_Snowflake",
+								"type": "LinkedServiceReference"
+							},
+							"typeProperties": {
+								"scripts": [
+									{
+										"type": "Query",
+										"text": {
+											"value": "INSERT INTO watermark_control (table_name, last_loaded_timestamp)\nSELECT '@{item().TABLE_NAME}', '1900-01-01 00:00:00'\nWHERE NOT EXISTS (\n    SELECT 1 FROM watermark_control\n    WHERE table_name = '@{item().TABLE_NAME}'\n);",
+											"type": "Expression"
+										}
+									}
+								],
+								"scriptBlockExecutionTimeout": "02:00:00",
+								"treatDecimalAsString": false
+							}
+						},
+						{
+							"name": "Lookup_watermark",
+							"type": "Lookup",
+							"dependsOn": [
+								{
+									"activity": "Script1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SnowflakeV2Source",
+									"query": {
+										"value": "SELECT last_loaded_timestamp\nFROM watermark_control\nWHERE table_name = '@{item().TABLE_NAME}';",
+										"type": "Expression"
+									},
+									"exportSettings": {
+										"type": "SnowflakeExportCopyCommand"
+									},
+									"treatDecimalAsString": false
+								},
+								"dataset": {
+									"referenceName": "ds_Snowflake",
+									"type": "DatasetReference",
+									"parameters": {
+										"tablename": "mapping"
+									}
+								}
+							}
+						},
+						{
+							"name": "v_last_watermark",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Lookup_watermark",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "v_last_watermark",
+								"value": {
+									"value": "@activity('Lookup_watermark').output.firstRow.last_loaded_timestamp",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Copy data1",
+							"type": "Copy",
+							"dependsOn": [
+								{
+									"activity": "v_last_watermark",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "MySqlSource",
+									"query": {
+										"value": "SELECT *\nFROM @{item().TABLE_NAME}\nWHERE last_modified > '@{variables('v_last_watermark')}'",
+										"type": "Expression"
+									}
+								},
+								"sink": {
+									"type": "SnowflakeV2Sink",
+									"importSettings": {
+										"type": "SnowflakeImportCopyCommand"
+									}
+								},
+								"enableStaging": true,
+								"stagingSettings": {
+									"linkedServiceName": {
+										"referenceName": "linkedService2",
+										"type": "LinkedServiceReference"
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "ds_MySql",
+									"type": "DatasetReference",
+									"parameters": {
+										"table": "anyvalue"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ds_Snowflake",
+									"type": "DatasetReference",
+									"parameters": {
+										"tablename": {
+											"value": "@concat(toUpper(item().TABLE_NAME),'_SNOWFLAKE')",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						},
+						{
+							"name": "UPDATE_watermark_table",
+							"type": "Script",
+							"dependsOn": [
+								{
+									"activity": "Copy data1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"linkedServiceName": {
+								"referenceName": "ls_Snowflake",
+								"type": "LinkedServiceReference"
+							},
+							"typeProperties": {
+								"scripts": [
+									{
+										"type": "Query",
+										"text": {
+											"value": "UPDATE watermark_control\nSET last_loaded_timestamp = (\n    SELECT MAX(last_modified)\n    FROM IDENTIFIER('@{item().TABLE_NAME}_snowflake')\n)\nWHERE table_name = '@{item().TABLE_NAME}';",
+											"type": "Expression"
+										}
+									}
+								],
+								"scriptBlockExecutionTimeout": "02:00:00",
+								"treatDecimalAsString": false
+							}
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"v_last_watermark": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "ksr_project"
+		},
+		"annotations": []
+	}
+}
