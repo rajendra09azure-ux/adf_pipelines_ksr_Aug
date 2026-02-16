@@ -154,7 +154,7 @@
 						"referenceName": "ds_Snowflake",
 						"type": "DatasetReference",
 						"parameters": {
-							"tablename": "SALES_ORDERS_SNOWFLAKE"
+							"tablename": "sales_orders_snowflake"
 						}
 					}
 				]
