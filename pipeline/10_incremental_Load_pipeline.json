@@ -71,12 +71,41 @@
 						}
 					}
 				}
+			},
+			{
+				"name": "v_last_watermark",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Lookup_watermark",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "v_last_watermark",
+					"value": {
+						"value": "@activity('Lookup_watermark').output.firstRow.last_loaded_timestamp",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
 			"p_table_name": {
 				"type": "string",
 				"defaultValue": "SALES_ORDERS_SNOWFLAKE"
+			}
+		},
+		"variables": {
+			"v_last_watermark": {
+				"type": "String"
 			}
 		},
 		"folder": {
