@@ -72,7 +72,7 @@
 									{
 										"type": "Query",
 										"text": {
-											"value": "INSERT INTO watermark_control (table_name, last_loaded_timestamp)\nSELECT '@{pipeline().parameters.p_table_name}', '1900-01-01 00:00:00'\nWHERE NOT EXISTS (\n    SELECT 1 FROM watermark_control\n    WHERE table_name = '@{pipeline().parameters.p_table_name}'\n);",
+											"value": "INSERT INTO watermark_control (table_name, last_loaded_timestamp)\nSELECT '@{item().TABLE_NAME}', '1900-01-01 00:00:00'\nWHERE NOT EXISTS (\n    SELECT 1 FROM watermark_control\n    WHERE table_name = '@{item().TABLE_NAME}'\n);",
 											"type": "Expression"
 										}
 									}
@@ -104,7 +104,7 @@
 								"source": {
 									"type": "SnowflakeV2Source",
 									"query": {
-										"value": "SELECT last_loaded_timestamp\nFROM watermark_control\nWHERE table_name = '@{pipeline().parameters.p_table_name}';",
+										"value": "SELECT last_loaded_timestamp\nFROM watermark_control\nWHERE table_name = '@{item().TABLE_NAME}';",
 										"type": "Expression"
 									},
 									"exportSettings": {
@@ -168,7 +168,7 @@
 								"source": {
 									"type": "MySqlSource",
 									"query": {
-										"value": "SELECT *\nFROM @{pipeline().parameters.p_table_name}\nWHERE last_modified > '@{variables('v_last_watermark')}'",
+										"value": "SELECT *\nFROM @{item().TABLE_NAME}\nWHERE last_modified > '@{variables('v_last_watermark')}'",
 										"type": "Expression"
 									}
 								},
@@ -200,7 +200,10 @@
 									"referenceName": "ds_Snowflake",
 									"type": "DatasetReference",
 									"parameters": {
-										"tablename": "SALES_ORDERS_SNOWFLAKE"
+										"tablename": {
+											"value": "@concat(item().TABLE_NAME,'_SNOWFLAKE')",
+											"type": "Expression"
+										}
 									}
 								}
 							]
@@ -233,7 +236,7 @@
 									{
 										"type": "Query",
 										"text": {
-											"value": "UPDATE watermark_control\nSET last_loaded_timestamp = (\n    SELECT MAX(last_modified)\n    FROM IDENTIFIER('@{pipeline().parameters.p_table_name}_snowflake')\n)\nWHERE table_name = '@{pipeline().parameters.p_table_name}';",
+											"value": "UPDATE watermark_control\nSET last_loaded_timestamp = (\n    SELECT MAX(last_modified)\n    FROM IDENTIFIER('@{item().TABLE_NAME}_snowflake')\n)\nWHERE table_name = '@{item().TABLE_NAME}';",
 											"type": "Expression"
 										}
 									}
@@ -246,6 +249,11 @@
 				}
 			}
 		],
+		"variables": {
+			"v_last_watermark": {
+				"type": "String"
+			}
+		},
 		"folder": {
 			"name": "ksr_project"
 		},
