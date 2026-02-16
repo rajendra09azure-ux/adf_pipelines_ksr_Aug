@@ -1,6 +1,44 @@
 {
 	"name": "10_incremental_Load_pipeline",
 	"properties": {
+		"activities": [
+			{
+				"name": "Script1",
+				"type": "Script",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "ls_Snowflake",
+					"type": "LinkedServiceReference"
+				},
+				"typeProperties": {
+					"scripts": [
+						{
+							"type": "Query",
+							"text": {
+								"value": "INSERT INTO watermark_control (table_name, last_loaded_timestamp)\nSELECT '@{pipeline().parameters.p_table_name}', '1900-01-01 00:00:00'\nWHERE NOT EXISTS (\n    SELECT 1 FROM watermark_control\n    WHERE table_name = '@{pipeline().parameters.p_table_name}'\n);",
+								"type": "Expression"
+							}
+						}
+					],
+					"scriptBlockExecutionTimeout": "02:00:00",
+					"treatDecimalAsString": false
+				}
+			}
+		],
+		"parameters": {
+			"p_table_name": {
+				"type": "string",
+				"defaultValue": "SALES_ORDERS_SNOWFLAKE"
+			}
+		},
 		"folder": {
 			"name": "ksr_project"
 		},
