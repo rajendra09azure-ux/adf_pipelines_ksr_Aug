@@ -18,7 +18,7 @@
 					"source": {
 						"type": "SnowflakeV2Source",
 						"query": {
-							"value": "select * from sales.public.table_mapping;",
+							"value": "select * from public.table_mapping;",
 							"type": "Expression"
 						},
 						"exportSettings": {
