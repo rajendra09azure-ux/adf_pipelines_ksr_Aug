@@ -1,0 +1,9 @@
+{
+	"name": "11_incremental_load_multi_Table_pipeline",
+	"properties": {
+		"folder": {
+			"name": "ksr_project"
+		},
+		"annotations": []
+	}
+}
