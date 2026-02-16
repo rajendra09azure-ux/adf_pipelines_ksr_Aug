@@ -82,10 +82,7 @@
 		],
 		"typeProperties": {
 			"schema": "PUBLIC",
-			"table": {
-				"value": "@dataset().tablename",
-				"type": "Expression"
-			}
+			"table": "SALES_ORDERS_SNOWFLAKE"
 		}
 	}
 }
