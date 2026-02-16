@@ -140,7 +140,13 @@
 				"inputs": [
 					{
 						"referenceName": "ds_MySql",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"table": {
+								"value": "SELECT *\nFROM @{pipeline().parameters.p_table_name}\nWHERE last_modified > '@{variables('v_last_watermark')}'",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"outputs": [
