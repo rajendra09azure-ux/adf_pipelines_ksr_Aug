@@ -97,7 +97,10 @@
 							"inputs": [
 								{
 									"referenceName": "ds_input1",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"folder": "20261502/twest.csv"
+									}
 								}
 							],
 							"outputs": [
