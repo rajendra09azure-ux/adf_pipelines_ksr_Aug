@@ -46,7 +46,7 @@
 				]
 			},
 			"v_desti": {
-				"type": "Array"
+				"type": "Integer"
 			}
 		},
 		"folder": {
