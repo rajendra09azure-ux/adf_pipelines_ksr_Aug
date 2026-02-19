@@ -1,0 +1,88 @@
+{
+	"name": "Area-Pipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "A",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "A",
+					"value": {
+						"value": "4",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "B",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "B",
+					"value": {
+						"value": "4",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Area",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "A",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "B",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "Area",
+					"value": {
+						"value": "@string(mul(int(variables('A')),int(variables('B'))))",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"A": {
+				"type": "String",
+				"defaultValue": "5"
+			},
+			"B": {
+				"type": "String",
+				"defaultValue": "10"
+			},
+			"Area": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "ksr_project"
+		},
+		"annotations": []
+	}
+}
