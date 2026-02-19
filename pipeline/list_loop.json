@@ -11,6 +11,9 @@
 					4,
 					5
 				]
+			},
+			"v_desti": {
+				"type": "Array"
 			}
 		},
 		"folder": {
