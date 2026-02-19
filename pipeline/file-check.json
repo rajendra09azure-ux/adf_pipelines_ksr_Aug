@@ -1,0 +1,9 @@
+{
+	"name": "file-check",
+	"properties": {
+		"folder": {
+			"name": "ksr_project"
+		},
+		"annotations": []
+	}
+}
