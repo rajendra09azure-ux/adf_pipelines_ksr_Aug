@@ -130,7 +130,8 @@
 										"folder": {
 											"value": "@concat('folder1/',variables('date'))",
 											"type": "Expression"
-										}
+										},
+										"filename": "sas"
 									}
 								}
 							],
