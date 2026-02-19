@@ -1,6 +1,18 @@
 {
 	"name": "list_loop",
 	"properties": {
+		"variables": {
+			"v_list": {
+				"type": "Array",
+				"defaultValue": [
+					1,
+					2,
+					3,
+					4,
+					5
+				]
+			}
+		},
 		"folder": {
 			"name": "ksr_project"
 		},
