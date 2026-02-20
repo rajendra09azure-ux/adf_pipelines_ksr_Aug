@@ -1,0 +1,9 @@
+{
+	"name": "mysql-S3",
+	"properties": {
+		"folder": {
+			"name": "ksr_project"
+		},
+		"annotations": []
+	}
+}
