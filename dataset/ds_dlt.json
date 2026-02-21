@@ -1,0 +1,19 @@
+{
+	"name": "ds_dlt",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "twest.csv",
+				"folderPath": "folder1/20261602",
+				"container": "input"
+			}
+		}
+	}
+}
