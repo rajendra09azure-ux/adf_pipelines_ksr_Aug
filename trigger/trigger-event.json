@@ -1,0 +1,24 @@
+{
+	"name": "trigger-event",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "event-trig-pipeline",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/input-csv/blobs/",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/52f68f38-2e09-4e88-b575-51bd526aadae/resourceGroups/ksr_25_batch/providers/Microsoft.Storage/storageAccounts/ksraugbatch25adls",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}
