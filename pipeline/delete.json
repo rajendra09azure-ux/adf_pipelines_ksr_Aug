@@ -19,6 +19,13 @@
 						"referenceName": "ds_dlt",
 						"type": "DatasetReference"
 					},
+					"logStorageSettings": {
+						"linkedServiceName": {
+							"referenceName": "Is_adls_zen2",
+							"type": "LinkedServiceReference"
+						},
+						"path": "output"
+					},
 					"enableLogging": true,
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
