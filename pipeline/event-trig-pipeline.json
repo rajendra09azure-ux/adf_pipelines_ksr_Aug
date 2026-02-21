@@ -1,0 +1,9 @@
+{
+	"name": "event-trig-pipeline",
+	"properties": {
+		"folder": {
+			"name": "ksr_project"
+		},
+		"annotations": []
+	}
+}
