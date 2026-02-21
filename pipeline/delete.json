@@ -1,0 +1,9 @@
+{
+	"name": "delete",
+	"properties": {
+		"folder": {
+			"name": "ksr_project"
+		},
+		"annotations": []
+	}
+}
